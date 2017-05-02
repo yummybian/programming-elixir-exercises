@@ -1,4 +1,4 @@
-defmodule MyList do
+defmodule MyEnum do
 
   def all?(list),     do: all?(list, fn x -> !!x end) # !! converts truthy to `true`
   def all?([], _fun), do: true
@@ -36,15 +36,15 @@ defmodule MyList do
 end
 
 
-IO.inspect MyList.all?([])                 #=> true
-IO.inspect MyList.all?([true, true])       #=> true
-IO.inspect MyList.all?([true, false])      #=> false
-IO.inspect MyList.all?([4, 5, 6], &(&1 > 3))  #=> true
+IO.inspect MyEnum.all?([])                 #=> true
+IO.inspect MyEnum.all?([true, true])       #=> true
+IO.inspect MyEnum.all?([true, false])      #=> false
+IO.inspect MyEnum.all?([4, 5, 6], &(&1 > 3))  #=> true
 
-MyList.each([1,2,3], &(IO.puts(&1)))          #=> 1/2/3
+MyEnum.each([1,2,3], &(IO.puts(&1)))          #=> 1/2/3
 
-IO.inspect MyList.split([1,2,3,4,5,6], 3)  #=> [[1, 2, 3], [4, 5, 6]]
-IO.inspect MyList.split([1,2,3,4,5,6,7,8], 3)  #=> [[1, 2, 3], [4, 5]]
+IO.inspect MyEnum.split([1,2,3,4,5,6], 3)  #=> [[1, 2, 3], [4, 5, 6]]
+IO.inspect MyEnum.split([1,2,3,4,5,6,7,8], 3)  #=> [[1, 2, 3], [4, 5]]
 
 
-IO.inspect MyList.take('pragmatic', 6)     #=> 'pragma'
+IO.inspect MyEnum.take('pragmatic', 6)     #=> 'pragma'
