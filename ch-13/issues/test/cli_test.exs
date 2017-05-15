@@ -13,4 +13,16 @@ defmodule CliTest do
   test "count is defaulted if two values given" do
     assert Issues.CLI.parse_args(["user", "project"]) == { "user", "project", 4 }
   end
+
+
+  test "sort ascending orders the correct way" do
+    result = Issues.CLI.sort_into_ascending_order(fake_created_at_list(["c", "a", "b"]))
+    issues = Enum.map(result, fn(x) -> Map.get(x, "created_at") end)
+    assert issues == ~w{a b c}
+  end
+
+  defp fake_created_at_list(values) do
+    for value <- values,
+      do: %{"created_at" => value, "other_data" => "xxx"}
+  end
 end
