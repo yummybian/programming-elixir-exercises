@@ -1,6 +1,6 @@
 defmodule Issues.TableFormatter do
     
-    import Enum, only: [ each: 2, map: 2, map_join: 3 ]
+    import Enum, only: [ each: 2, map: 2, map_join: 3, max: 1 ]
 
     def print_table_for_columns(rows, headers) do
         with data_by_columns = split_into_columns(rows, headers),
@@ -23,7 +23,7 @@ defmodule Issues.TableFormatter do
     def printable(str), do: to_string(str)
 
     def widths_of(columns) do
-        for column <- columns, do: column |> Enum.max(&String.length/1) 
+        for column <- columns, do: column |> map(&String.length/1) |> max
     end
 
     def format_for(column_widths) do

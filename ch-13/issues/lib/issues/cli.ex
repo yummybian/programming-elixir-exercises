@@ -1,6 +1,5 @@
 defmodule Issues.CLI do 
 
-    @default_count 4
 
     @moduledoc """
     Handle the command line parsing and the dispatch to
@@ -8,7 +7,11 @@ defmodule Issues.CLI do
     table of the last _n_ issues in a github project
     """
 
-    def run(argv) do 
+    import Issues.TableFormatter, only: [ print_table_for_columns: 2 ]
+
+    @default_count 4
+
+    def main(argv) do 
         argv
         |> parse_args
         |> process
@@ -52,7 +55,7 @@ defmodule Issues.CLI do
         |> decode_response
         |> sort_into_ascending_order
         |> Enum.take(count)
-        |> Issues.TableFormatter.print_table_for_columns(["number", "created_at", "title"])
+        |> print_table_for_columns(["number", "created_at", "title"])
     end
 
     def decode_response({:ok, body}), do: body
